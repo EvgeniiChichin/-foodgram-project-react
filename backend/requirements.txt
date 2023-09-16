@@ -11,7 +11,6 @@ djangorestframework==3.12.4
 djangorestframework-simplejwt==5.2.2
 djoser==2.2.0
 django-colorfield==0.10.1
-pytz==2023.3.post1
 sqlparse==0.4.4
 typing_extensions==4.7.1
 drf-extra-fields==3.5.0
@@ -40,5 +39,7 @@ six==1.16.0
 social-auth-app-django==5.2.0
 social-auth-core==4.4.2
 sqlparse==0.4.4
-typing_extensions==4.6.3
 urllib3==2.0.3
+django-cors-headers==3.13.0
+
+
