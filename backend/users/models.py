@@ -37,7 +37,8 @@ class User(AbstractUser):
     password = models.CharField( 
         verbose_name="Пароль", 
         max_length=settings.INGREDIENT_NAME_MAX_LENGTH_100, 
-    ) 
+    )
+    is_subscribed = models.BooleanField(default=False) 
 
     class Meta: 
         ordering = ["username"] 

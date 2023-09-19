@@ -14,7 +14,7 @@ from .filters import RecipeFilter
 from .permissions import IsAuthorOrReadOnly
 from .serializers import (
     CustomUserSerializer, FavoriteSerializer, FollowSerializer,
-    IngredientSerializer, RecipeCreateUpdateSerializer, RecipeSerializer,
+    IngredientSerializer, RecipeCreateSerializer, RecipeSerializer,
     TagSerializer
 )
 from recipes.models import (
@@ -95,7 +95,7 @@ class RecipeViewSet(ModelViewSet):
     def get_serializer_class(self):
         if self.action in ('list', 'retrieve'):
             return RecipeSerializer
-        return RecipeCreateUpdateSerializer
+        return RecipeCreateSerializer
 
     def add_favorites(self, model, request, pk):
         recipe = get_object_or_404(Recipe, id=pk)
