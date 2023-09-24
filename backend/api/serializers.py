@@ -1,12 +1,13 @@
+from rest_framework.serializers import (
+    IntegerField, ListField, ModelSerializer, PrimaryKeyRelatedField,
+    ReadOnlyField, SerializerMethodField, ValidationError
+)
 from djoser.serializers import UserCreateSerializer, UserSerializer
-from rest_framework.serializers import (IntegerField, ListField,
-                                        ModelSerializer,
-                                        PrimaryKeyRelatedField, ReadOnlyField,
-                                        SerializerMethodField, ValidationError)
 
 from api.fields import Base64ImageField, ColorNameConverter
-from recipes.models import (Favorite, Ingredient, Recipe, RecipeIngredient,
-                            Shopping_list, Tag)
+from recipes.models import (
+    Favorite, Ingredient, Recipe, RecipeIngredient, Shopping_list, Tag
+)
 from users.models import Subscription, User
 
 
@@ -222,8 +223,8 @@ class FollowSerializer(UserSerializer):
 
     def get_is_subscribed(self, obj):
         return Subscription.objects.filter(
-           user=obj.user, 
-           author=obj.author
+            user=obj.user,
+            author=obj.author
         ).exists()
 
     def get_recipes(self, obj):
