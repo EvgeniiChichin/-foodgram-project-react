@@ -5,6 +5,7 @@ from django.db import models
 from django.db.models import UniqueConstraint
 from users.models import User
 
+
 class Ingredient(models.Model):
     name = models.CharField(
         max_length=settings.INGREDIENT_NAME_MAX_LENGTH,
