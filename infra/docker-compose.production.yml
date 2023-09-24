@@ -5,6 +5,7 @@ volumes:
   static_volume:
   media_volume:
 
+
 services:
 
   db:
@@ -13,10 +14,10 @@ services:
       - ./.env
     volumes:
       - db_value:/var/lib/postgresql/data
- 
+
   backend:
     image: evgeniichichin/foodgram_backend
-    env_file: 
+    env_file:
       - ./.env
     volumes:
       - static_volume:/app/static/
@@ -30,7 +31,7 @@ services:
       - ../frontend/:/app/result_build/
     depends_on:
       - db
- 
+
   gateway:
     image: nginx:1.19.3
     volumes:
@@ -38,6 +39,6 @@ services:
       - ../frontend/build:/usr/share/nginx/html/
       - ../docs/:/usr/share/nginx/html/api/docs/
       - static_volume:/app/static
-      - media_volume:/app/media 
+      - media_volume:/app/media
     ports:
       - 8000:80

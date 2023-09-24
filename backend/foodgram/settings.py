@@ -1,22 +1,22 @@
-from pathlib import Path 
-from dotenv import load_dotenv 
-import os 
+from pathlib import Path
+from dotenv import load_dotenv
+import os
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-load_dotenv() 
+load_dotenv()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv("SECRET_KEY", "django-123") 
+SECRET_KEY = os.getenv("SECRET_KEY", "django-123")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG', '').lower() == 'True' 
+DEBUG = os.getenv('DEBUG', '').lower() == 'True'
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',') 
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',')
 
 
 # Application definition
@@ -31,7 +31,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'djoser',
-    'django_filters',   
+    'django_filters',
     'colorfield',
     'users',
     'recipes',
@@ -148,7 +148,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-APPEND_SLASH=False
+APPEND_SLASH = False
 AUTH_USER_MODEL = 'users.User'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
@@ -164,5 +164,5 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-INGREDIENT_NAME_MAX_LENGTH = 200 
-INGREDIENT_NAME_MAX_LENGTH_100 = 100 
+INGREDIENT_NAME_MAX_LENGTH = 200
+INGREDIENT_NAME_MAX_LENGTH_100 = 100
