@@ -16,8 +16,7 @@ from .serializers import (CustomUserSerializer, FavoriteSerializer,
                           FollowSerializer, IngredientSerializer,
                           RecipeCreateSerializer, RecipeSerializer,
                           TagSerializer)
-from recipes.models import (Favorite, Ingredient, Recipe, RecipeIngredient,
-                            Shopping_list, Tag)
+from recipes.models import (Favorite, Ingredient, Recipe, RecipeIngredient, Shopping_list, Tag)
 from users.models import Subscription, User
 
 
