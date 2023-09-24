@@ -1,9 +1,8 @@
 import base64
 
+import webcolors
 from django.core.files.base import ContentFile
 from rest_framework import serializers
-
-import webcolors
 
 
 class ColorNameConverter(serializers.Field):
