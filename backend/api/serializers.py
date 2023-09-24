@@ -1,10 +1,10 @@
 from django.core.validators import RegexValidator
 
+from djoser.serializers import UserCreateSerializer, UserSerializer
 from rest_framework.serializers import (CharField, IntegerField, ListField,
                                         ModelSerializer,
                                         PrimaryKeyRelatedField, ReadOnlyField,
                                         SerializerMethodField, ValidationError)
-from djoser.serializers import UserCreateSerializer, UserSerializer
 
 from api.fields import Base64ImageField, ColorNameConverter
 from recipes.models import (Favorite, Ingredient, Recipe, RecipeIngredient,
