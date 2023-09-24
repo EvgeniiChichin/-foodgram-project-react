@@ -221,7 +221,10 @@ class FollowSerializer(UserSerializer):
                   'is_subscribed', 'recipes', 'recipes_count')
 
     def get_is_subscribed(self, obj):
-        return Subscription.objects.filter(user=obj.user, author=obj.author).exists()
+        return Subscription.objects.filter(
+           user=obj.user, 
+           author=obj.author
+        ).exists()
 
     def get_recipes(self, obj):
         request = self.context.get('request')
