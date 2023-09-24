@@ -1,9 +1,9 @@
 from rest_framework.serializers import (
     IntegerField, ListField, ModelSerializer, PrimaryKeyRelatedField,
-    ReadOnlyField, SerializerMethodField, ValidationError
+    ReadOnlyField, SerializerMethodField, ValidationError, CharField
 )
 from djoser.serializers import UserCreateSerializer, UserSerializer
-
+from django.core.validators import RegexValidator
 from api.fields import Base64ImageField, ColorNameConverter
 from recipes.models import (
     Favorite, Ingredient, Recipe, RecipeIngredient, Shopping_list, Tag
@@ -37,11 +37,12 @@ class CustomUserSerializer(UserSerializer):
 
     def get_is_subscribed(self, obj):
         request = self.context.get('request')
-        if request and not request.user.is_anonymous:
-            return Subscription.objects.filter(
-                user=request.user, author=obj
-            ).exists()
-        return False
+        return (
+            request
+            and request.user.is_authenticated
+            and obj
+            and obj.subscriptions.filter(user=request.user).exists()
+        )
 
 
 class TagSerializer(ModelSerializer):
@@ -56,6 +57,12 @@ class TagSerializer(ModelSerializer):
 
 class IngredientSerializer(ModelSerializer):
     """Сериализатор просмотра модели Ингредиенты."""
+    measurement_unit = CharField(validators=[
+        RegexValidator(
+            regex='^[^/;]$',
+            message='Значение должно содержать только буквы и цифры'
+        )
+    ])
 
     class Meta:
         model = Ingredient
@@ -147,23 +154,23 @@ class RecipeCreateSerializer(ModelSerializer):
             "cooking_time",
         )
 
-    def validate(self, data):
-        ingredients = data.get('ingredients')
-        if not ingredients:
-            raise ValidationError('Добавьте ингредиенты')
-        ingredients_list = []
-        for ingredient in ingredients:
-            amount = ingredient['amount']
-            if amount < 1:
-                raise ValidationError('Добавьте количество ингредиента')
-            if ingredient in ingredients_list:
-                raise ValidationError('Ингредиенты не должны повторяться')
-            ingredients_list.append(ingredient)
-        if data['cooking_time'] < 1:
-            raise ValidationError('Добавьте время приготовления')
-        if not data['tags']:
-            raise ValidationError('Добавьте тег')
-        return data
+    def validate(self, attrs):
+        self.validate_ingredients(attrs.get('ingredients', []))
+        self.validate_tags(attrs.get('tags', []))
+        self.validate_cooking_time(attrs.get('cooking_time', 0))
+        return attrs
+
+    def validate_ingredients(self, value):
+        if not value or len(value) < 1:
+            raise ValidationError('Добавьте хотя бы один ингредиент')
+
+    def validate_tags(self, value):
+        if not value or len(value) < 1:
+            raise ValidationError('Добавьте хотя бы один тег')
+
+    def validate_cooking_time(self, value):
+        if not isinstance(value, int) or value < 1:
+            raise ValidationError('Время должно быть положительным')
 
     def add_tags_ingredients(self, recipe, tags, ingredients):
         recipe.tags.set(tags)

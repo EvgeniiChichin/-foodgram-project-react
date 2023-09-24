@@ -1,8 +1,10 @@
-from colorfield.fields import ColorField
 from django.conf import settings
 from django.core.validators import MinValueValidator
 from django.db import models
 from django.db.models import UniqueConstraint
+
+from colorfield.fields import ColorField
+
 from users.models import User
 
 
@@ -22,8 +24,8 @@ class Ingredient(models.Model):
     )
 
     class Meta:
-        ordering = ["name"]
-        verbose_name = "Ингедиент"
+        ordering = ("name",)
+        verbose_name = "Ингредиент"
         verbose_name_plural = "Ингредиенты"
         constraints = [
             UniqueConstraint(
@@ -37,10 +39,12 @@ class Ingredient(models.Model):
 
 
 class Tag(models.Model):
-    name = models.CharField(unique=True,
-                            max_length=settings.INGREDIENT_NAME_MAX_LENGTH,
-                            verbose_name="Тег",
-                            db_index=True,)
+    name = models.CharField(
+        unique=True,
+        max_length=settings.INGREDIENT_NAME_MAX_LENGTH,
+        verbose_name="Тег",
+        db_index=True,
+    )
 
     color_code = ColorField(
         format="hex",
@@ -58,7 +62,7 @@ class Tag(models.Model):
     )
 
     class Meta:
-        ordering = ["name"]
+        ordering = ("name",)
         verbose_name = "Тег"
         verbose_name_plural = "Теги"
 
@@ -84,10 +88,10 @@ class Recipe(models.Model):
     image = models.ImageField(
         verbose_name="Картинка",
         help_text="Загрузите ссылку на картинку к рецепту",
-        upload_to="recipes/images/",
+        upload_to=settings.PATH_TO_FILES,
     )
     text = models.TextField(
-        max_length=1000,
+        max_length=settings.MAX_LENGTH,
         verbose_name="Описание рецепта",
         help_text="Введите описание рецепта",
     )

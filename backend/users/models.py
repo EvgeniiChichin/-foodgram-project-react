@@ -40,6 +40,9 @@ class User(AbstractUser):
     )
     is_subscribed = models.BooleanField(default=False)
 
+    USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = ["username"]
+
     class Meta:
         ordering = ["username"]
         verbose_name = "Пользователь"

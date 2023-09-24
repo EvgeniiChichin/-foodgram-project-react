@@ -22,6 +22,7 @@ class RecipeAdmin(admin.ModelAdmin):
     search_fields = ("name", "author__username")
     inlines = [RecipeIngredientInline]
 
+    @admin.display(description='В избранном')
     def in_favorite(self, obj):
         return obj.favorite.all().count()
 

@@ -1,40 +1,59 @@
-<img src="https://github.com/devicons/devicon/blob/master/icons/react/react-original-wordmark.svg" title="React" alt="React" width="100" height="100"/>&nbsp;
-# FoodGram
+# Foodgram
 
-Проект "FoodGram" - это веб-приложение, разработанное для помощи пользователям в поиске, сохранении и организации их любимых рецептов. Оно позволяет пользователям искать рецепты, добавлять их в избранное и создавать список покупок на основе выбранных рецептов.
+### Описание
+- Foodgram является онлайн-сервисом, в котором пользователи могут публиковать рецепты, добавлять их в список "Избранные", подписываться на публикации других пользователей, также скачивать список продуктов, необходимых для приготовления одного или нескольких выбранных блюд. Реализован REST API для основных моделей проекта, а также система регистрации и аутентификации пользователей. Для аутентификации используются JWT-токены.
+- Проект использует базу данных PostgreSQL. Проект запускается в трёх контейнерах (nginx, PostgreSQL и Django) (контейнер frontend используется лишь для подготовки файлов) через docker-compose на сервере. Образ с проектом загружается на Docker Hub.
+### Технологии
+- Python 3.10.7
+- Django 2.2.16
+- Django Rest Framework 3.12.4
+- PyJWT 2.1.0
+- Django-filter 2.4.0
+- Python-dotenv 0.20.0
+- gunicorn==20.0.4
+- psycopg2-binary==2.8.6
 
+![foodgram](https://github.com/mihailkasev/foodgram-project-react/actions/workflows/foodgram.yml/badge.svg)
 
-# REST framework / PostgreSQL / Docker / Gunicorn / Nginx / Python
+### Запуск проекта 
+- Клонируйте репозиторий:
+```
+git clone https://github.com/mihailkasev/foodgram-project-react.git
+```
+- Шаблон заполнения .env:
+```
+- DB_ENGINE=django.db.backends.postgresql
+- POSTGRES_DB=postgres
+- POSTGRES_USER=postgres
+- POSTGRES_PASSWORD=postgres
+- POSTGRES_HOST=postgres
+- POSTGRES_PORT=5432
+```
+- Собрать и запустить контейнеры:
+```
+docker-compose up -d --build
+```
+- Запустить миграции:
+```
+docker-compose exec backend python manage.py migrate
+```
+- Создать суперпользователя:
+```
+docker-compose exec backend python manage.py createsuperuser
+```
+- Собрать статику:
+```
+docker-compose exec backend python manage.py collectstatic --no-input
+```
+- Загрузить ингредиенты:
+```
+docker-compose exec backend python manage.py load_ingredients
+```
+- Адреса сайта:
+1) http://localhost/ - главная страница;
+3) http://localhost/admin/ - администрирование;
+4) http://localhost/api/ - API проекта;
+5) http://localhost/api/docs/redoc.html - документация к API;
 
-
-## Особенности<br>
-
-- Просмотр и поиск рецептов.<br>
-- Добавление рецептов в избранное.<br>
-- Создание списка покупок на основе выбранных рецептов.<br>
-- Загрузка списка покупок в формате TXT.<br>
-- Аутентификация и авторизация пользователей.<br>
-- API-точки доступа для взаимодействия с приложением программным способом.<br>
-
-## API-точки доступа<br>
-Приложение предоставляет API-точки доступа для программного взаимодействия. Ниже представлены некоторые из доступных точек доступа:<br>
-
-`/api/recipes/`: Список рецептов.<br>
-`/api/recipes/<int:pk>/`: Детали конкретного рецепта.<br>
-`/api/recipes/<int:pk>/favorite/`: Добавление или удаление рецепта из избранного.<br>
-`/api/recipes/<int:pk>/shopping_cart/`: Добавление или удаление рецепта из корзины покупок.<br>
-`/api/recipes/download_shopping_cart/`: Загрузка корзины покупок в формате TXT.<br>
-`/api/docs/redoc.html`:Для получения более подробной информации о точках доступа API.<br>
-
-## Содействие<br>
-Приветствуются ваши вклады! Чтобы внести вклад в проект "FoodGram", выполните следующие шаги:<br>
-
-Форкните репозиторий.<br>
-Создайте новую ветку для своей функции или исправления багов: `git checkout -b имя-функции`.<br>
-Зафиксируйте свои изменения: `git commit -m "Добавление новой функции"`.<br>
-Отправьте изменения в свой форк: `git push origin имя-функции`.<br>
-Создайте запрос на включение изменений в основной репозиторий.<br>
-
-
-domain: foooooood.ddns.net<br>
-ip: 158.160.17.63<br>
+### Автор:
+- [Евгений Чичин](https://github.com/mihailkasev/) - создание api, деплой.
