@@ -164,7 +164,6 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-INGREDIENT_NAME_MAX_LENGTH = 200
-INGREDIENT_NAME_MAX_LENGTH_100 = 100
+MAX_LENGTH_100 = 100
 PATH_TO_FILES = "recipes/images/"
 MAX_LENGTH = 1000

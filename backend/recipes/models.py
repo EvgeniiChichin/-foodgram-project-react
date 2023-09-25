@@ -9,14 +9,14 @@ from users.models import User
 
 class Ingredient(models.Model):
     name = models.CharField(
-        max_length=settings.INGREDIENT_NAME_MAX_LENGTH,
+        max_length=settings.MAX_LENGTH,
         verbose_name="Ингредиент",
         help_text="Введите название ингедиента",
         db_index=True,
     )
 
     measurement_unit = models.CharField(
-        max_length=settings.INGREDIENT_NAME_MAX_LENGTH,
+        max_length=settings.MAX_LENGTH,
         verbose_name="Единица измерения",
         help_text="Введите название единицы измерения",
         db_index=True,
@@ -40,7 +40,7 @@ class Ingredient(models.Model):
 class Tag(models.Model):
     name = models.CharField(
         unique=True,
-        max_length=settings.INGREDIENT_NAME_MAX_LENGTH,
+        max_length=settings.MAX_LENGTH,
         verbose_name="Тег",
         db_index=True,
     )
@@ -54,7 +54,7 @@ class Tag(models.Model):
 
     slug = models.SlugField(
         unique=True,
-        max_length=settings.INGREDIENT_NAME_MAX_LENGTH,
+        max_length=settings.MAX_LENGTH,
         verbose_name="Слаг тега",
         help_text="Введите слаг тега",
         db_index=True,
@@ -72,14 +72,14 @@ class Tag(models.Model):
 class Recipe(models.Model):
     author = models.ForeignKey(
         User,
-        max_length=settings.INGREDIENT_NAME_MAX_LENGTH,
+        max_length=settings.MAX_LENGTH,
         on_delete=models.CASCADE,
         related_name="recipes",
         verbose_name="Автор рецепта",
         db_index=True,
     )
     name = models.CharField(
-        max_length=settings.INGREDIENT_NAME_MAX_LENGTH,
+        max_length=settings.MAX_LENGTH,
         verbose_name="Название рецепта",
         help_text="Введите название рецепта",
         db_index=True,

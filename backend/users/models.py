@@ -12,36 +12,38 @@ username_validator = UnicodeUsernameValidator()
 class User(AbstractUser):
 
     username = models.CharField(
-        max_length=settings.INGREDIENT_NAME_MAX_LENGTH_100,
+        max_length=settings.MAX_LENGTH_100,
         unique=True,
         verbose_name="Юзернейм",
         validators=[username_validator, validate_username],
         db_index=True,
     )
     first_name = models.CharField(
-        max_length=settings.INGREDIENT_NAME_MAX_LENGTH_100,
+        max_length=settings.MAX_LENGTH_100,
         blank=False,
         verbose_name="Имя",
         db_index=True,)
     last_name = models.CharField(
-        max_length=settings.INGREDIENT_NAME_MAX_LENGTH_100,
+        max_length=settings.MAX_LENGTH_100,
         blank=False,
         verbose_name="Фамилия",
         db_index=True,)
     email = models.EmailField(
-        max_length=settings.INGREDIENT_NAME_MAX_LENGTH_100,
+        max_length=settings.MAX_LENGTH_100,
         unique=True,
         verbose_name="Электронная почта",
         db_index=True,
     )
     password = models.CharField(
         verbose_name="Пароль",
-        max_length=settings.INGREDIENT_NAME_MAX_LENGTH_100,
+        max_length=settings.MAX_LENGTH_100,
     )
     is_subscribed = models.BooleanField(default=False)
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["username"]
+    REQUIRED_FIELDS = ["username", 
+                       "first_name",
+                       "last_name", ]
 
     class Meta:
         ordering = ["username"]
