@@ -56,4 +56,4 @@ docker-compose exec backend python manage.py load_ingredients
 5) http://localhost/api/docs/redoc.html - документация к API;
 
 ### Автор:
-- [Евгений Чичин](https://github.com/mihailkasev/) - создание api, деплой.
+- [Евгений Чичин]- создание api, деплой.
